@@ -3,6 +3,7 @@ package br.thullyoo.login_user.model;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -59,5 +60,9 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isPasswordMatch(String rawPassword, PasswordEncoder encoder){
+        return encoder.matches(rawPassword, this.password);
     }
 }
